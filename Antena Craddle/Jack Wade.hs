@@ -7,7 +7,7 @@ module System.Info
 ) where
 
 compilerVersion :: Version
-compilerVersion = Version [najor, minor] []
+compilerVersion = Version [major, minor] []
     where (major, minor) = compilerVersionRaw `divMod` 100
 
 #include "ghcplatform.h"
