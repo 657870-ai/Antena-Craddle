@@ -84,21 +84,112 @@ data Set-ImcAdaptor = 001d7f
              Hostname                           :: --vty_addr=$$
              Proto                              :: --vty_port=$$
              Pwd                                :: --vty_addr=$$
-             
-             
+             RemotFile                          :: --version
+             User                               :: % telnet localhost
+             XtraProperty                       :: RIGHT
+             Force                              :: LEFT
+             Imc                                :: DEL
              
              (var/run (\init.d -> zebra status { restart = stop })))]
         }
         
         Set-ImcAdaptorEthCompQueueProfile           :: Bool {
-            
+            [ AdaptorEthCompQueueProfile [no os]
+                (
+                    AdaptorHostEthIf                        :: UP
+                    Count                                   :: DOWN
+                    XtraProperty                            :: TAB
+                    Force                                   :: ?
+                    Imc                                     :: --batch
+                )]
         }
         
         Set-ImcAdaptorEthGenProfile                 :: Bool {
-            
+            [ AdaptorEthGenProfile [no os]
+                (
+                    :: --batch
+                    AdaptorHostEthIf                        :: --keep_kernel
+                    Arfs                                    :: --retain
+                    Order                                   :: interface
+                    RateLimit                               :: shutdown
+                    TrustedClassOfService                   :: bandwidth
+                    UplinkFailbackTimeout                   :: ip address
+                    UplinkFailover                          :: ipv6 address
+                    Vlan                                    :: link-detect
+                    VlanMode                                :: link-params
+                    Vmq                                     :: description
+                    XtraProperty                            :: multicast
+                    Force                                   :: enable
+                    Imc                                     :: metric
+                    
+                )]
         }
         
         Set-ImcaAdaptorEthISCSIProfile              :: Bool {
+            [ AdaptorEthISCSIProfile [no os]
+                (
+                    AdaptorHostEthIf                                    :: max-bw
+                    DhcpISCSI                                           :: max-rsv-bw
+                    DhcpId                                              :: unrsv-bw
+                    DhcpNetworkSettings                                 :: admin-grp
+                    DhcpTimeout                                         :: ava-bw
+                    InitiatorChapName                                   :: use-bw
+                    InitiatorChapSecret                                 :: neighbor
+                    InitiatorGateway                                    :: ip route
+                    InitiatorIPAddress                                  :: show
+                    InitiatorName                                       :: ipv6 route
+                    InitiatorPrimaryDns                                 :: table
+                    InitiatorSecondaryDns                               :: ip multicast rpf-lookup-mode
+                        (\ multicast -> rpf-lookup-mode {
+                            urib-only                   = ip
+                            mrib-only                   = ip
+                            mrib-then-urib              = ip
+                            lower-distance              = ip
+                            longer-prefix               = ip
+                        })
+                    
+                    InitiatorSubnetMask                 :: show ip rpf
+                    InitiatorTCPTimeout                 :: ip protocol
+                    LinkBusyRetryCount                  :: set src
+                    
+                    (LinkupTimeout (\ $$ -> % {
+                        ip prefix-list ANY permit $ le 32
+                        route-map RM1 permit int
+                            match ip address prefix-list ANY
+                            set src $
+                        
+                        ip protocol rip route-map RM1 = {
+                            ipv6 route                  :: show
+                            interface                   :: show
+                            ip prefix-list              :: show
+                            route-map                   :: show
+                            ip protocol                 :: show
+                            ipforward                   :: show
+                            zebra fpm stats             :: show && clear
+                            
+                        }
+                    }))
+                    
+                    PrimaryTargetBootLun            :: zebra -d
+                    
+                    PrimaryTargetChapName                   :: ripd -d
+                    PrimaryTargetChapSecret                 :: SIGHUP
+                    PrimaryTargetIPAddress                  :: SIGUSR1
+                    PrimaryTargetName                       :: SIGINT
+                    SecondaryTargetBootLun                  :: SIGTERM
+                    SecondaryTargetChapName                 :: router rip
+                    SecondaryTargetChapSecret               :: network
+                    SecondaryTargetIPAddress                :: passive-interface | default
+                    SecondaryTargetName                     :: ip split-horizon
+                    XtraProperty                            :: redistribute kernel metric
+                    Force                                   :: redistribute kernel route-map
+                    Imc                                     :: redistribute static metric
+                    
+                    (\ redistribute static route-map)
+                    
+                    (\ delay -> delay-variation { packet-loss = res-bw })
+                    
+                )]
             
         }
         
