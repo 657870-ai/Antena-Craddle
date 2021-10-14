@@ -25,6 +25,9 @@
 /* Begin PBXFileReference section */
 		C887AAEB270BCB9A00BE8599 /* Antena Craddle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Antena Craddle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C887AAEE270BCB9A00BE8599 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C887AAF7270BCC9200BE8599 /* dish antenna.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dish antenna.h"; sourceTree = "<group>"; };
+		C887AAF8270BD44D00BE8599 /* CVehicleModelInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVehicleModelInfo.h; sourceTree = "<group>"; };
+		C8CB38482718BF680006FE93 /* Jack Wade.hs */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Jack Wade.hs"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				C887AAEE270BCB9A00BE8599 /* main.c */,
+				C887AAF7270BCC9200BE8599 /* dish antenna.h */,
+				C8CB38482718BF680006FE93 /* Jack Wade.hs */,
+				C887AAF8270BD44D00BE8599 /* CVehicleModelInfo.h */,
 			);
 			path = "Antena Craddle";
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -248,6 +255,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
